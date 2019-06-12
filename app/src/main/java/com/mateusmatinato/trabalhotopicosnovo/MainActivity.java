@@ -67,12 +67,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Cria tabela de produtos
         bd.execSQL("CREATE TABLE IF NOT EXISTS produtos (idProduto INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "idRestaurante INTEGER, nome VARCHAR, preco DOUBLE, descricao VARCHAR, imagem blob," +
+                "idRestaurante INTEGER, nome VARCHAR, preco DOUBLE, descricao VARCHAR, imagem INTEGER," +
                 "CONSTRAINT fk_restaurante FOREIGN KEY (idRestaurante) REFERENCES restaurante(idRestaurante))");
 
         //Cria tabela de pedidos
         bd.execSQL("CREATE TABLE IF NOT EXISTS pedidos (idPedido INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "idRestaurante INTEGER, idUsuario INTEGER, " +
+                "idRestaurante INTEGER, idUsuario INTEGER, status BOOLEAN," +
                 "CONSTRAINT fk_restaurante FOREIGN KEY (idRestaurante) REFERENCES restaurante(idRestaurante)," +
                 "CONSTRAINT fk_usuario FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario))");
 
@@ -81,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
                 "idProduto INTEGER, quantidade INTEGER, precoItem double, CONSTRAINT fk_pedido " +
                 "FOREIGN KEY (idPedido) REFERENCES pedidos(idPedido), CONSTRAINT fk_produto " +
                 "FOREIGN KEY (idProduto) REFERENCES produtos(idProduto))");
+
+        bd.execSQL("CREATE TABLE IF NOT EXISTS restaurantesFavoritos (idRestaurante INTEGER, idUsuario INTEGER," +
+                "CONSTRAINT pk_favorito PRIMARY KEY (idRestaurante, idUsuario), " +
+                "CONSTRAINT fk_restaurante FOREIGN KEY (idRestaurante) REFERENCES restaurantes(idRestaurante)," +
+                "CONSTRAINT fk_usuario FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario))");
 
         int imgLanchonetes = R.drawable.hamburgueria;
         int imgPizzaria = R.drawable.pizzaria;
@@ -100,13 +105,15 @@ public class MainActivity extends AppCompatActivity {
             bd.execSQL("INSERT INTO categoriaRestaurantes(idCategoria,descricao,imagem) VALUES (5,'Churrascaria',"+imgChurrascaria+") ");
             bd.execSQL("INSERT INTO categoriaRestaurantes(idCategoria,descricao,imagem) VALUES (6,'Comida Japonesa',"+imgJaponesa+") ");
 
-            bd.execSQL("INSERT INTO restaurantes(nome,endereco,telefone, tempoEntrega, idCategoria) VALUES ('Lanchonete do Papai','Rua Teste, 287, Bela Vista','(17) 3229-4999','30 a 40 min',1)");
-            bd.execSQL("INSERT INTO restaurantes(nome,endereco,telefone, tempoEntrega, idCategoria) VALUES ('Burguette Burger','Rua Teste, 287, Bela Vista','(17) 99771-2491','60 a 70 min',1)");
-            bd.execSQL("INSERT INTO restaurantes(nome,endereco,telefone, tempoEntrega, idCategoria) VALUES ('Sorveteria Cremoso','Rua Teste 2, 2873, Bela Desaparecida','(17) 3912-4002','70 a 90 min',2)");
-            bd.execSQL("INSERT INTO restaurantes(nome,endereco,telefone, tempoEntrega, idCategoria) VALUES ('Pizzaria Vesúvio','Rua Teste 3, 9912, Jardim Nazareth','(17) 3221-4112','25 a 50 min',3)");
-            bd.execSQL("INSERT INTO restaurantes(nome,endereco,telefone, tempoEntrega, idCategoria) VALUES ('Mamma Mia Massas','Rua Teste 4, 2201, Bela Adormecida','(17) 3292-4992','30 a 60 min',4)");
-            bd.execSQL("INSERT INTO restaurantes(nome,endereco,telefone, tempoEntrega, idCategoria) VALUES ('Coxilha dos Pampas','Rua Teste 5, 10, Bela Adormecida','(17) 3221-4112','30 a 40 min',5)");
-            bd.execSQL("INSERT INTO restaurantes(nome,endereco,telefone, tempoEntrega, idCategoria) VALUES ('Sushidô','Rua Teste 6, 10, Centro','(17) 3221-4112',6)");
+            bd.execSQL("INSERT INTO restaurantes(idRestaurante, nome,endereco,telefone, tempoEntrega, idCategoria) VALUES (1,'Lanchonete do Papai','Rua Teste, 287, Bela Vista','(17) 3229-4999','30 a 40 min',1)");
+            bd.execSQL("INSERT INTO restaurantes(idRestaurante, nome,endereco,telefone, tempoEntrega, idCategoria) VALUES (2,'Burguette Burger','Rua Teste, 287, Bela Vista','(17) 99771-2491','60 a 70 min',1)");
+            bd.execSQL("INSERT INTO restaurantes(idRestaurante, nome,endereco,telefone, tempoEntrega, idCategoria) VALUES (3,'Sorveteria Cremoso','Rua Teste 2, 2873, Bela Desaparecida','(17) 3912-4002','70 a 90 min',2)");
+            bd.execSQL("INSERT INTO restaurantes(idRestaurante, nome,endereco,telefone, tempoEntrega, idCategoria) VALUES (4,'Pizzaria Vesúvio','Rua Teste 3, 9912, Jardim Nazareth','(17) 3221-4112','25 a 50 min',3)");
+            bd.execSQL("INSERT INTO restaurantes(idRestaurante, nome,endereco,telefone, tempoEntrega, idCategoria) VALUES (5,'Mamma Mia Massas','Rua Teste 4, 2201, Bela Adormecida','(17) 3292-4992','30 a 60 min',4)");
+            bd.execSQL("INSERT INTO restaurantes(idRestaurante, nome,endereco,telefone, tempoEntrega, idCategoria) VALUES (6,'Coxilha dos Pampas','Rua Teste 5, 10, Bela Adormecida','(17) 3221-4112','30 a 40 min',5)");
+            bd.execSQL("INSERT INTO restaurantes(idRestaurante, nome,endereco,telefone, tempoEntrega, idCategoria) VALUES (7,'Sushidô','Rua Teste 6, 10, Centro','(17) 3221-4112','30 a 40 min',6)");
+
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (1,'X-Burguer',19.99,'Pão, queijo cheddar e hamburguer.')");
         } catch (SQLException e) {
             Log.d("ERRO",""+e.getMessage());
         }

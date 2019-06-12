@@ -27,7 +27,7 @@ public class Admin extends AppCompatActivity {
         Cursor cursor = bd.rawQuery("SELECT * FROM usuarios where idUsuario = "+idUsuario,null);
         cursor.moveToFirst();
         String nomeUsuario = cursor.getString(cursor.getColumnIndex("nome"));
-        tvNome = findViewById(R.id.tvNome);
+        tvNome = findViewById(R.id.tvNomeProduto);
         tvNome.setText("Bem vindo, "+nomeUsuario);
     }
 }
