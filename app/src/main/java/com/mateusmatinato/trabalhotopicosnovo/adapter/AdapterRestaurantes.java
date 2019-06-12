@@ -40,6 +40,7 @@ public class AdapterRestaurantes extends RecyclerView.Adapter<AdapterRestaurante
         myViewHolder.nome.setText(listaRestaurantes.get(i).getNome());
         myViewHolder.endereco.setText(listaRestaurantes.get(i).getEndereco());
         myViewHolder.telefone.setText(listaRestaurantes.get(i).getTelefone());
+        myViewHolder.imagem.setImageResource(listaRestaurantes.get(i).getImagem());
 
 
     }
@@ -65,6 +66,7 @@ public class AdapterRestaurantes extends RecyclerView.Adapter<AdapterRestaurante
             endereco = itemView.findViewById(R.id.tvEndereco);
             telefone = itemView.findViewById(R.id.tvTelefone);
             imagem = itemView.findViewById(R.id.imgRestaurante);
+            imagem.setImageResource(R.drawable.hamburgueria);
         }
     }
 }

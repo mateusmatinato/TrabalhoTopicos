@@ -12,6 +12,8 @@ public class Admin extends AppCompatActivity {
     private SQLiteDatabase bd;
     private TextView tvNome;
 
+    private int idUsuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,9 +22,9 @@ public class Admin extends AppCompatActivity {
 
         bd = openOrCreateDatabase("trabalhoTopicos",MODE_PRIVATE, null);
         Intent intent = getIntent();
+        int idUsuario = intent.getIntExtra("idUsuario",0);
 
-        String emailUsuario = intent.getStringExtra("emailLogado");
-        Cursor cursor = bd.rawQuery("SELECT * FROM usuarios where email = ?",new String[]{emailUsuario});
+        Cursor cursor = bd.rawQuery("SELECT * FROM usuarios where idUsuario = "+idUsuario,null);
         cursor.moveToFirst();
         String nomeUsuario = cursor.getString(cursor.getColumnIndex("nome"));
         tvNome = findViewById(R.id.tvNome);

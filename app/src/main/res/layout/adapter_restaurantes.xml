@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/imgRestaurante"
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
+            android:layout_width="87dp"
+            android:layout_height="75dp"
             app:srcCompat="@mipmap/ic_launcher" />
 
         <LinearLayout

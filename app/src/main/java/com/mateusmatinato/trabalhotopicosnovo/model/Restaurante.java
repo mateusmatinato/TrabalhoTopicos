@@ -5,7 +5,7 @@ public class Restaurante {
     private String nome;
     private String telefone;
     private String endereco;
-    private String imagem;
+    private int imagem;
 
     public int getId() {
         return id;
@@ -39,11 +39,11 @@ public class Restaurante {
         this.endereco = endereco;
     }
 
-    public String getImagem() {
+    public int getImagem() {
         return imagem;
     }
 
-    public void setImagem(String imagem) {
+    public void setImagem(int imagem) {
         this.imagem = imagem;
     }
 }
