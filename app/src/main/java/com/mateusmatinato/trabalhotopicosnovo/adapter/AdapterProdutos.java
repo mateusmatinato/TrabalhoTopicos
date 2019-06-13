@@ -1,7 +1,9 @@
 package com.mateusmatinato.trabalhotopicosnovo.adapter;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mateusmatinato.trabalhotopicosnovo.R;
+import com.mateusmatinato.trabalhotopicosnovo.RestauranteActivity;
 import com.mateusmatinato.trabalhotopicosnovo.model.Produto;
 import com.mateusmatinato.trabalhotopicosnovo.model.Restaurante;
 
@@ -19,9 +22,11 @@ import java.util.List;
 public class AdapterProdutos extends RecyclerView.Adapter<AdapterProdutos.MyViewHolder>{
     private List<Produto> listaProdutos;
     private static DecimalFormat df2 = new DecimalFormat("#.##");
+    private RestauranteActivity restauranteActivity;
 
-    public AdapterProdutos(List<Produto> listaProdutos) {
+    public AdapterProdutos(List<Produto> listaProdutos, RestauranteActivity restauranteActivity) {
         this.listaProdutos = listaProdutos;
+        this.restauranteActivity = restauranteActivity;
     }
 
     @NonNull
@@ -33,11 +38,12 @@ public class AdapterProdutos extends RecyclerView.Adapter<AdapterProdutos.MyView
         View listaItens = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_produtos, viewGroup,false);
 
 
-        return new MyViewHolder(listaItens);
+        return new MyViewHolder(listaItens, viewGroup);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
+        final int indice = i;
         // Este método atualiza a visualização e mostra os elementos
         // i representa cada posição no RecyclerView
         // Como setamos a quantidade de elementos para lista.size()
@@ -46,18 +52,31 @@ public class AdapterProdutos extends RecyclerView.Adapter<AdapterProdutos.MyView
         myViewHolder.nome.setText(listaProdutos.get(i).getNome());
         myViewHolder.descricao.setText(listaProdutos.get(i).getDescricao());
         myViewHolder.preco.setText("R$: "+df2.format(listaProdutos.get(i).getPreco()));
+        myViewHolder.idProduto.setText(""+listaProdutos.get(i).getIdProduto());
 
         myViewHolder.btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(myViewHolder.btnMinus.getContext(), "CLICOU NO MENOS", Toast.LENGTH_SHORT).show();
+                int qtd = Integer.parseInt(myViewHolder.quantidade.getText().toString());
+                if(qtd > 0){
+                    qtd--;
+                    restauranteActivity.alteraPrecoTotal(listaProdutos.get(indice).getPreco(),0);
+                    myViewHolder.quantidade.setText(""+qtd);
+                }
+                //Toast.makeText(myViewHolder.btnMinus.getContext(), "CLICOU NO MENOS", Toast.LENGTH_SHORT).show();
             }
         });
 
         myViewHolder.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(myViewHolder.btnAdd.getContext(), "CLICOU NO MAIS", Toast.LENGTH_SHORT).show();
+                int qtd = Integer.parseInt(myViewHolder.quantidade.getText().toString());
+                if(qtd < 100){
+                    qtd++;
+                    restauranteActivity.alteraPrecoTotal(listaProdutos.get(indice).getPreco(),1);
+                    myViewHolder.quantidade.setText(""+qtd);
+                }
+                //Toast.makeText(myViewHolder.btnAdd.getContext(), "CLICOU NO MAIS", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -75,10 +94,12 @@ public class AdapterProdutos extends RecyclerView.Adapter<AdapterProdutos.MyView
         TextView nome;
         TextView descricao;
         TextView preco;
+        TextView quantidade;
+        TextView idProduto;
         ImageView btnMinus;
         ImageView btnAdd;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, View itensProdutos) {
             super(itemView);
 
             //linka os elementos do layout aos atributos da classe
@@ -87,6 +108,9 @@ public class AdapterProdutos extends RecyclerView.Adapter<AdapterProdutos.MyView
             preco = itemView.findViewById(R.id.tvPreco);
             btnMinus = itemView.findViewById(R.id.btnMinus);
             btnAdd = itemView.findViewById(R.id.btnAdd);
+            quantidade = itemView.findViewById(R.id.tvQuantidade);
+            idProduto = itemView.findViewById(R.id.tvIdProduto);
+
         }
     }
 }

@@ -12,9 +12,10 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/infoLanche"
             android:layout_width="293dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:orientation="vertical">
 
             <TextView
@@ -45,14 +46,15 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            app:srcCompat="@android:drawable/ic_menu_add" />
+            app:srcCompat="@drawable/icon_minus" />
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="40dp"
+            android:id="@+id/tvQuantidade"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:gravity="center"
+            android:minWidth="40dp"
             android:text="0"
             android:textAlignment="center"
             android:textSize="18sp"
@@ -63,8 +65,15 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            app:srcCompat="@android:drawable/ic_menu_add" />
+            app:srcCompat="@drawable/icon_plus" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvIdProduto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone" />
 
 </LinearLayout>

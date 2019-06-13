@@ -8,7 +8,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="416dp"
+        android:layout_width="0dp"
         android:layout_height="65dp"
         android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
@@ -20,11 +20,13 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvProdutos"
-        android:layout_width="394dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_above="@id/navigation"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar2"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tbFinalizarPedido"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,8 +89,8 @@
         app:srcCompat="@drawable/btn_star_big_off" />
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="416dp"
+        android:id="@+id/tbFinalizarPedido"
+        android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginBottom="1dp"
         android:background="@color/colorPrimaryDark"
@@ -107,11 +109,11 @@
         android:textColor="@android:color/background_light"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
-        app:layout_constraintEnd_toStartOf="@+id/toolbar2"
+        app:layout_constraintBottom_toBottomOf="@+id/tbFinalizarPedido"
+        app:layout_constraintEnd_toStartOf="@+id/tbFinalizarPedido"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/toolbar2"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
+        app:layout_constraintStart_toEndOf="@+id/tbFinalizarPedido"
+        app:layout_constraintTop_toTopOf="@+id/tbFinalizarPedido" />
 
     <TextView
         android:id="@+id/tvPrecoTotal"
@@ -119,14 +121,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="R$ 0,00"
+        android:text="R$ 0.00"
         android:textColor="@android:color/background_light"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintBottom_toBottomOf="@+id/tbFinalizarPedido"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.921"
         app:layout_constraintStart_toEndOf="@+id/tvSacola"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2"
+        app:layout_constraintTop_toTopOf="@+id/tbFinalizarPedido"
         app:layout_constraintVertical_bias="0.487" />
 
 </android.support.constraint.ConstraintLayout>

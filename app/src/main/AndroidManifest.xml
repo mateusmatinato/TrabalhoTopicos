@@ -15,6 +15,7 @@
             android:name=".Home"
             android:label="@string/title_activity_home" />
         <activity android:name=".Admin" />
+        <activity android:name=".FinalizarPedido"/>
         <activity android:name=".Cadastro" />
         <activity android:name=".MainActivity">
             <intent-filter>
