@@ -66,7 +66,7 @@
         android:background="#eaeaea"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLayoutTroco" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <TextView
         android:id="@+id/tvNomeProduto"
@@ -280,8 +280,9 @@
         android:id="@+id/textLayoutTroco"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="56dp"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/radioGroup"
         app:layout_constraintTop_toBottomOf="@+id/tv5">
 

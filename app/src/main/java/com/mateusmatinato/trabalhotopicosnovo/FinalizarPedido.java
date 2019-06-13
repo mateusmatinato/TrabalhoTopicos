@@ -10,6 +10,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,8 @@ public class FinalizarPedido extends AppCompatActivity {
 
     private TextView nomeRestaurante, enderecoUsuario, tempoEntrega,
             subTotal, taxaEntrega, totalPedido, itensPedido;
+
+    private Button btnFinalizar;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -60,7 +64,7 @@ public class FinalizarPedido extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide(); // Oculta título do app
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.layout.slide_up, R.layout.slide_down);
+        //overridePendingTransition(R.layout.slide_up, R.layout.slide_down);
         setContentView(R.layout.activity_finalizarpedido);
 
         bd = openOrCreateDatabase("trabalhoTopicos", MODE_PRIVATE, null);
@@ -78,6 +82,7 @@ public class FinalizarPedido extends AppCompatActivity {
         taxaEntrega = findViewById(R.id.tvSubTotal2);
         totalPedido = findViewById(R.id.tvPrecoTotalFinalizar);
         itensPedido = findViewById(R.id.tvListaItens);
+        btnFinalizar = findViewById(R.id.btnFinalizar);
 
         String pedido = "";
         Double valorItens = 0.00;
@@ -115,6 +120,13 @@ public class FinalizarPedido extends AppCompatActivity {
         totalPedido.setText("R$ " + df2.format(valorTotal));
 
         itensPedido.setText(pedido);
+
+        btnFinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Verifica se selecionou pelo menos um dos radio box e ai insere na tabela pedidos
+            }
+        });
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

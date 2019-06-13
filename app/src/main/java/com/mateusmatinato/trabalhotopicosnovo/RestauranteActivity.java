@@ -171,25 +171,28 @@ public class RestauranteActivity extends AppCompatActivity {
         tbFinalizarPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent finalizarPedido = new Intent(getApplicationContext(),FinalizarPedido.class);
-                finalizarPedido.putExtra("idUsuario",idUsuario);
-                finalizarPedido.putExtra("idRestaurante",idRestaurante);
+                Intent finalizarPedido = new Intent(getApplicationContext(), FinalizarPedido.class);
+                finalizarPedido.putExtra("idUsuario", idUsuario);
+                finalizarPedido.putExtra("idRestaurante", idRestaurante);
 
 
-                HashMap<Integer,Integer> listaPedido=new HashMap<Integer,Integer>();
+                HashMap<Integer, Integer> listaPedido = new HashMap<Integer, Integer>();
                 TextView itemAtual, qtdAtual, idItemAtual;
                 for (int i = 0; i < rvProdutos.getChildCount(); i++) {
                     qtdAtual = rvProdutos.findViewHolderForAdapterPosition(i).itemView.findViewById(R.id.tvQuantidade);
                     int qtd = Integer.parseInt(qtdAtual.getText().toString());
-                    if(qtd != 0){
+                    if (qtd != 0) {
                         //Esse produto foi selecionado, adiciona na lista do pedido
                         idItemAtual = rvProdutos.findViewHolderForAdapterPosition(i).itemView.findViewById(R.id.tvIdProduto);
                         listaPedido.put(Integer.parseInt(idItemAtual.getText().toString()), qtd);
                     }
                 }
-                finalizarPedido.putExtra("listaPedidos",listaPedido);
-
-                startActivity(finalizarPedido, ActivityOptions.makeSceneTransitionAnimation(RestauranteActivity.this).toBundle());
+                finalizarPedido.putExtra("listaPedidos", listaPedido);
+                if (listaPedido.isEmpty()) {
+                    Toast.makeText(RestauranteActivity.this, "Você precisa selecionar pelo menos um produto!", Toast.LENGTH_SHORT).show();
+                } else {
+                    startActivity(finalizarPedido, ActivityOptions.makeSceneTransitionAnimation(RestauranteActivity.this).toBundle());
+                }
             }
         });
 
@@ -198,7 +201,7 @@ public class RestauranteActivity extends AppCompatActivity {
 
     public void alteraPrecoTotal(Double precoItem, int flag) {
         DecimalFormat df2 = new DecimalFormat("#.##");
-        String precoAtualString = precoTotal.getText().toString().substring(3).replace(",",".");
+        String precoAtualString = precoTotal.getText().toString().substring(3).replace(",", ".");
         double precoAtual = Double.parseDouble(precoAtualString);
         if (flag == 1) {
             //soma

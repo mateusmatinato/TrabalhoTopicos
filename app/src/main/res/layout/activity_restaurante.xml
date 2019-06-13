@@ -131,4 +131,19 @@
         app:layout_constraintTop_toTopOf="@+id/tbFinalizarPedido"
         app:layout_constraintVertical_bias="0.487" />
 
+    <ImageView
+        android:id="@+id/imgBasket"
+        android:layout_width="32dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tbFinalizarPedido"
+        app:layout_constraintEnd_toStartOf="@+id/tvSacola"
+        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tbFinalizarPedido"
+        app:layout_constraintVertical_bias="0.653"
+        app:srcCompat="@drawable/icon_basket" />
+
+
 </android.support.constraint.ConstraintLayout>
