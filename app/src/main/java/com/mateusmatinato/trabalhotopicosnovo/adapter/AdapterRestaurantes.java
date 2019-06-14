@@ -62,7 +62,7 @@ public class AdapterRestaurantes extends RecyclerView.Adapter<AdapterRestaurante
             super(itemView);
 
             //linka os elementos do layout aos atributos da classe
-            nome = itemView.findViewById(R.id.tvNomeProduto);
+            nome = itemView.findViewById(R.id.tvNomeRestaurante);
             endereco = itemView.findViewById(R.id.tvEndereco);
             telefone = itemView.findViewById(R.id.tvTelefone);
             imagem = itemView.findViewById(R.id.imgRestaurante);

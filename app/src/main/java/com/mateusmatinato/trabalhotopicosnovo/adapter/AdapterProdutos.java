@@ -1,20 +1,16 @@
 package com.mateusmatinato.trabalhotopicosnovo.adapter;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mateusmatinato.trabalhotopicosnovo.R;
 import com.mateusmatinato.trabalhotopicosnovo.RestauranteActivity;
 import com.mateusmatinato.trabalhotopicosnovo.model.Produto;
-import com.mateusmatinato.trabalhotopicosnovo.model.Restaurante;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -103,7 +99,7 @@ public class AdapterProdutos extends RecyclerView.Adapter<AdapterProdutos.MyView
             super(itemView);
 
             //linka os elementos do layout aos atributos da classe
-            nome = itemView.findViewById(R.id.tvNomeProduto);
+            nome = itemView.findViewById(R.id.tvNomeRestaurante);
             descricao = itemView.findViewById(R.id.tvDescricao);
             preco = itemView.findViewById(R.id.tvPreco);
             btnMinus = itemView.findViewById(R.id.btnMinus);

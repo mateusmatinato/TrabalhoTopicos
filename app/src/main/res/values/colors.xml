@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#d84315</color>
+    <color name="colorPrimary">#F53131</color>
     <color name="colorPrimaryDark">#9F0000</color>
-    <color name="colorAccent">#FF7543</color>
+    <color name="colorAccent">#961400</color>
+    <color name="fundoPedidosData">#f4f1e9</color>
 </resources>

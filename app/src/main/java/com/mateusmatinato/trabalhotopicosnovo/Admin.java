@@ -17,7 +17,6 @@ public class Admin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide(); // Oculta título do app
         setContentView(R.layout.activity_admin);
 
         bd = openOrCreateDatabase("trabalhoTopicos",MODE_PRIVATE, null);
@@ -27,7 +26,7 @@ public class Admin extends AppCompatActivity {
         Cursor cursor = bd.rawQuery("SELECT * FROM usuarios where idUsuario = "+idUsuario,null);
         cursor.moveToFirst();
         String nomeUsuario = cursor.getString(cursor.getColumnIndex("nome"));
-        tvNome = findViewById(R.id.tvNomeProduto);
+        tvNome = findViewById(R.id.tvNomeRestaurante);
         tvNome.setText("Bem vindo, "+nomeUsuario);
     }
 }

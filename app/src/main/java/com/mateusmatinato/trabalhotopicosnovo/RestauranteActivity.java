@@ -12,26 +12,21 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 import com.mateusmatinato.trabalhotopicosnovo.adapter.AdapterProdutos;
 import com.mateusmatinato.trabalhotopicosnovo.model.Produto;
-import com.mateusmatinato.trabalhotopicosnovo.model.Restaurante;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RestauranteActivity extends AppCompatActivity {
     private TextView tvNome, tvTempoEntrega;
@@ -61,7 +56,9 @@ public class RestauranteActivity extends AppCompatActivity {
                     //startActivity(home);
                     break;
                 case R.id.navigation_pedidos:
-
+                    Intent pedidos = new Intent(getApplicationContext(), Pedidos.class);
+                    pedidos.putExtra("idUsuario", idUsuario);
+                    startActivity(pedidos);
                     break;
                 case R.id.navigation_perfil:
 
@@ -74,7 +71,6 @@ public class RestauranteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_restaurante);
 
         Intent intent = getIntent();
@@ -92,7 +88,7 @@ public class RestauranteActivity extends AppCompatActivity {
         cursor.moveToFirst();
         String nomeRestaurante = cursor.getString(cursor.getColumnIndex("nome"));
         String tempoEntrega = cursor.getString(cursor.getColumnIndex("tempoEntrega"));
-        tvNome = findViewById(R.id.tvNomeProduto);
+        tvNome = findViewById(R.id.tvNomeRestaurante);
         tvTempoEntrega = findViewById(R.id.tvTempoEntrega);
         tvNome.setText("" + nomeRestaurante);
         tvTempoEntrega.setText("Entrega em: " + tempoEntrega);

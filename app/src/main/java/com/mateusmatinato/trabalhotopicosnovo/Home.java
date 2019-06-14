@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mateusmatinato.trabalhotopicosnovo.adapter.AdapterRestaurantes;
 import com.mateusmatinato.trabalhotopicosnovo.model.Restaurante;
@@ -55,7 +54,6 @@ public class Home extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().hide(); // Oculta título do app
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -88,7 +86,7 @@ public class Home extends AppCompatActivity {
         cursor = bd.rawQuery("SELECT * FROM usuarios where idUsuario = " + idUsuario, null);
         cursor.moveToFirst();
         String nomeUsuario = cursor.getString(cursor.getColumnIndex("nome"));
-        tvNome = findViewById(R.id.tvNomeProduto);
+        tvNome = findViewById(R.id.tvNomeRestaurante);
         tvNome.setText("Bem vindo, " + nomeUsuario);
 
 
@@ -114,12 +112,11 @@ public class Home extends AppCompatActivity {
                         restaurante.putExtra("idRestaurante",restaurantes.get(position).getId());
                         restaurante.putExtra("idUsuario",idUsuario);
                         startActivity(restaurante);
-                        Toast.makeText(getApplicationContext(), "Clique em " + restaurantes.get(position).getNome(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onLongItemClick(View view, int position) {
-                        Toast.makeText(getApplicationContext(), "Clique longo em " + restaurantes.get(position).getNome(), Toast.LENGTH_SHORT).show();
+                        /* Aqui talvez aparecer um menu para adicionar/remover dos favoritos */
                     }
 
                     @Override

@@ -72,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
 
         //Cria tabela de pedidos
         bd.execSQL("CREATE TABLE IF NOT EXISTS pedidos (idPedido INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "idRestaurante INTEGER, idUsuario INTEGER, status BOOLEAN," +
+                "idRestaurante INTEGER, idUsuario INTEGER, status TEXT, observacao VARCHAR, data TEXT, troco DOUBLE, precoTotal DOUBLE," +
                 "CONSTRAINT fk_restaurante FOREIGN KEY (idRestaurante) REFERENCES restaurante(idRestaurante)," +
                 "CONSTRAINT fk_usuario FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario))");
 
         //Cria tabela de itens de cada pedido
         bd.execSQL("CREATE TABLE IF NOT EXISTS itensPedido (idItem INTEGER PRIMARY KEY AUTOINCREMENT, idPedido INTEGER, " +
-                "idProduto INTEGER, quantidade INTEGER, precoItem double, CONSTRAINT fk_pedido " +
+                "idProduto INTEGER, quantidade INTEGER, CONSTRAINT fk_pedido " +
                 "FOREIGN KEY (idPedido) REFERENCES pedidos(idPedido), CONSTRAINT fk_produto " +
                 "FOREIGN KEY (idProduto) REFERENCES produtos(idProduto))");
 

@@ -35,7 +35,7 @@
     </android.support.v7.widget.RecyclerView>
 
     <TextView
-        android:id="@+id/tvNomeProduto"
+        android:id="@+id/tvNomeRestaurante"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toStartOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toBottomOf="@+id/tvNomeProduto" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNomeRestaurante" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -83,7 +83,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.972"
-        app:layout_constraintStart_toEndOf="@+id/tvNomeProduto"
+        app:layout_constraintStart_toEndOf="@+id/tvNomeRestaurante"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.47"
         app:srcCompat="@drawable/btn_star_big_off" />

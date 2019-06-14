@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvListaItens" />
+        app:layout_constraintTop_toBottomOf="@+id/tvStatus" />
 
     <View
         android:id="@+id/separator3"
@@ -66,10 +66,10 @@
         android:background="#eaeaea"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/rgPagamento" />
 
     <TextView
-        android:id="@+id/tvNomeProduto"
+        android:id="@+id/tvNomeRestaurante"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -100,15 +100,16 @@
         android:id="@+id/tvEndereco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:text="Entregar em: Rua Monsenhor Braz Baffa, 365, Jardim Nazareth"
-        android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/toolbar"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toBottomOf="@+id/tvNomeProduto" />
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/tvNomeRestaurante"
@@ -141,7 +142,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvNomeRestaurante" />
 
     <TextView
-        android:id="@+id/tvListaItens"
+        android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -243,7 +244,7 @@
         tools:layout_editor_absoluteY="332dp" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/rgPagamento"
         android:layout_width="147dp"
         android:layout_height="97dp"
         android:layout_marginStart="8dp"
@@ -278,21 +279,21 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textLayoutTroco"
-        android:layout_width="240dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
-        android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        android:layout_marginTop="64dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/rgPagamento"
         app:layout_constraintTop_toBottomOf="@+id/tv5">
 
         <EditText
             android:id="@+id/etTroco"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Troco"
+            android:hint="Troco para"
             android:inputType="numberDecimal"
             android:textSize="12sp" />
     </android.support.design.widget.TextInputLayout>
