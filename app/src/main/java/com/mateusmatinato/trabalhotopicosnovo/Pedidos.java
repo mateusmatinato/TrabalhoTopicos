@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +55,10 @@ public class Pedidos extends AppCompatActivity {
 
                     break;
                 case R.id.navigation_perfil:
-
+                    Intent perfil = new Intent(getApplicationContext(), Perfil.class);
+                    perfil.putExtra("idUsuario", idUsuario);
+                    finish();
+                    startActivity(perfil);
                     break;
             }
             return false;
@@ -117,6 +121,11 @@ public class Pedidos extends AppCompatActivity {
             count++;
         }
         AdapterPedidos adapter = new AdapterPedidos(pedidos);
+
+        if(pedidos.size() == 0){
+            //não possui pedidos, mostra o textView
+            findViewById(R.id.tvZeroPedidos).setVisibility(View.VISIBLE);
+        }
 
         // Configurar RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());

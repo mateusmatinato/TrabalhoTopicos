@@ -85,7 +85,7 @@ public class FinalizarPedido extends AppCompatActivity {
         idRestaurante = intent.getIntExtra("idRestaurante", 0);
         listaItens = (HashMap<Integer, Integer>) intent.getSerializableExtra("listaPedidos");
 
-        nomeRestaurante = findViewById(R.id.tvNomeRestaurante);
+        nomeRestaurante = findViewById(R.id.tvTitulo);
         enderecoUsuario = findViewById(R.id.tvEndereco);
         tempoEntrega = findViewById(R.id.tvEntrega);
         subTotal = findViewById(R.id.tvSubTotal);

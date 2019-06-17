@@ -13,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,6 +33,8 @@ public class Home extends AppCompatActivity {
 
     private int idUsuario;
 
+    private Button btnBuscar;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -45,7 +49,9 @@ public class Home extends AppCompatActivity {
                     startActivity(pedidos);
                     break;
                 case R.id.navigation_perfil:
-
+                    Intent perfil = new Intent(getApplicationContext(), Perfil.class);
+                    perfil.putExtra("idUsuario", idUsuario);
+                    startActivity(perfil);
                     break;
             }
             return false;
@@ -86,7 +92,7 @@ public class Home extends AppCompatActivity {
         cursor = bd.rawQuery("SELECT * FROM usuarios where idUsuario = " + idUsuario, null);
         cursor.moveToFirst();
         String nomeUsuario = cursor.getString(cursor.getColumnIndex("nome"));
-        tvNome = findViewById(R.id.tvNomeRestaurante);
+        tvNome = findViewById(R.id.tvTitulo);
         tvNome.setText("Bem vindo, " + nomeUsuario);
 
 

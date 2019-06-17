@@ -2,6 +2,7 @@ package com.mateusmatinato.trabalhotopicosnovo.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,12 @@ import java.util.List;
 
 public class AdapterRestaurantes extends RecyclerView.Adapter<AdapterRestaurantes.MyViewHolder>{
     private List<Restaurante> listaRestaurantes;
+    private List<Restaurante> restaurantesCopia;
 
     public AdapterRestaurantes(List<Restaurante> listaRestaurantes) {
         this.listaRestaurantes = listaRestaurantes;
+        this.restaurantesCopia = this.listaRestaurantes;
+
     }
 
     @NonNull
@@ -62,7 +66,7 @@ public class AdapterRestaurantes extends RecyclerView.Adapter<AdapterRestaurante
             super(itemView);
 
             //linka os elementos do layout aos atributos da classe
-            nome = itemView.findViewById(R.id.tvNomeRestaurante);
+            nome = itemView.findViewById(R.id.tvTitulo);
             endereco = itemView.findViewById(R.id.tvEndereco);
             telefone = itemView.findViewById(R.id.tvTelefone);
             imagem = itemView.findViewById(R.id.imgRestaurante);

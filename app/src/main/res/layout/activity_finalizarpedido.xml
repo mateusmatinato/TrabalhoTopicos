@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rgPagamento" />
 
     <TextView
-        android:id="@+id/tvNomeRestaurante"
+        android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -112,7 +112,7 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <TextView
-        android:id="@+id/tvNomeRestaurante"
+        android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -139,7 +139,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.005"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNomeRestaurante" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitulo" />
 
     <TextView
         android:id="@+id/tvStatus"

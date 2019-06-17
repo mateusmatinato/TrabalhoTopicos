@@ -96,8 +96,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         try {
-            bd.execSQL("INSERT INTO usuarios (email,senha,nome,telefone,endereco, admin) VALUES ('mateus.matinato@unesp.br','1234','Administrador','997712491','Teste',0)");
-            bd.execSQL("INSERT INTO usuarios (email,senha,nome,telefone,endereco, admin) VALUES ('mateusmatinato@gmail.com','1234','Mateus Matinato','997712491','Teste',1)");
             bd.execSQL("INSERT INTO categoriaRestaurantes(idCategoria,descricao,imagem) VALUES (1,'Lanchonete',"+imgLanchonetes+") ");
             bd.execSQL("INSERT INTO categoriaRestaurantes(idCategoria,descricao,imagem) VALUES (2,'Sorveteria',"+imgSorveteria+") ");
             bd.execSQL("INSERT INTO categoriaRestaurantes(idCategoria,descricao,imagem) VALUES (3,'Pizzaria',"+imgPizzaria+") ");
@@ -115,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
             bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (1,'X-Burguer',19.99,'Pão, queijo cheddar e hamburguer.')");
             bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (1,'X-Salada Bacon',21.99,'Pão, hamburguer, queijo mussarela, bacon e salada.')");
+
+            bd.execSQL("INSERT INTO usuarios (email,senha,nome,telefone,endereco, admin) VALUES ('mateus.matinato@unesp.br','1234','Administrador','997712491','Teste',0)");
+            bd.execSQL("INSERT INTO usuarios (email,senha,nome,telefone,endereco, admin) VALUES ('mateusmatinato@gmail.com','1234','Mateus Matinato','997712491','Teste',1)");
 
         } catch (SQLException e) {
             Log.d("ERRO",""+e.getMessage());

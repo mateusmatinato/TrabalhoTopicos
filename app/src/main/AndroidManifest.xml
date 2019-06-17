@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".RestauranteActivity"></activity>
         <activity android:name=".Pedidos" />
+        <activity android:name=".Perfil" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home" />

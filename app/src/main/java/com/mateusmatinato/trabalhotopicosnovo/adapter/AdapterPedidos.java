@@ -6,12 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mateusmatinato.trabalhotopicosnovo.R;
 import com.mateusmatinato.trabalhotopicosnovo.model.Pedido;
-import com.mateusmatinato.trabalhotopicosnovo.model.Restaurante;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -78,7 +76,7 @@ public class AdapterPedidos extends RecyclerView.Adapter<AdapterPedidos.MyViewHo
             super(itemView);
 
             //linka os elementos do layout aos atributos da classe
-            nomeRestaurante = itemView.findViewById(R.id.tvNomeRestaurante);
+            nomeRestaurante = itemView.findViewById(R.id.tvTitulo);
             status = itemView.findViewById(R.id.tvStatus);
             precoTotal = itemView.findViewById(R.id.tvPrecoPedido);
             dia = itemView.findViewById(R.id.tvDia);
