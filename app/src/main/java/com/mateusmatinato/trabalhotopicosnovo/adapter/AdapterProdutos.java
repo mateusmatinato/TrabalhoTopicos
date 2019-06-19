@@ -99,7 +99,7 @@ public class AdapterProdutos extends RecyclerView.Adapter<AdapterProdutos.MyView
             super(itemView);
 
             //linka os elementos do layout aos atributos da classe
-            nome = itemView.findViewById(R.id.tvTitulo);
+            nome = itemView.findViewById(R.id.tvNomeRestaurante);
             descricao = itemView.findViewById(R.id.tvDescricao);
             preco = itemView.findViewById(R.id.tvPreco);
             btnMinus = itemView.findViewById(R.id.btnMinus);

@@ -12,6 +12,7 @@ import com.mateusmatinato.trabalhotopicosnovo.R;
 import com.mateusmatinato.trabalhotopicosnovo.model.Pedido;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -19,6 +20,8 @@ import java.util.Locale;
 public class AdapterPedidos extends RecyclerView.Adapter<AdapterPedidos.MyViewHolder>{
     private List<Pedido> listaPedidos;
     private SQLiteDatabase bd;
+
+    private DecimalFormat df2 = new DecimalFormat("#.##");
 
     public AdapterPedidos(List<Pedido> listaPedidos) {
         this.listaPedidos = listaPedidos;
@@ -44,7 +47,7 @@ public class AdapterPedidos extends RecyclerView.Adapter<AdapterPedidos.MyViewHo
 
         myViewHolder.nomeRestaurante.setText(listaPedidos.get(i).getNomeRestaurante());
         myViewHolder.status.setText(listaPedidos.get(i).getStatus());
-        myViewHolder.precoTotal.setText("R$ "+listaPedidos.get(i).getPrecoTotal());
+        myViewHolder.precoTotal.setText("R$ "+df2.format(listaPedidos.get(i).getPrecoTotal()));
 
         DateFormat df = new SimpleDateFormat ("dd");
         String diaString = df.format(listaPedidos.get(i).getData());
@@ -76,8 +79,8 @@ public class AdapterPedidos extends RecyclerView.Adapter<AdapterPedidos.MyViewHo
             super(itemView);
 
             //linka os elementos do layout aos atributos da classe
-            nomeRestaurante = itemView.findViewById(R.id.tvTitulo);
-            status = itemView.findViewById(R.id.tvStatus);
+            nomeRestaurante = itemView.findViewById(R.id.tvNomeRestaurante);
+            status = itemView.findViewById(R.id.tvItens);
             precoTotal = itemView.findViewById(R.id.tvPrecoPedido);
             dia = itemView.findViewById(R.id.tvDia);
             mes = itemView.findViewById(R.id.tvMes);

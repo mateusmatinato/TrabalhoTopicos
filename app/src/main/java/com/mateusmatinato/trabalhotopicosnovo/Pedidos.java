@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,9 @@ public class Pedidos extends AppCompatActivity {
     private int idUsuario;
 
     private RecyclerView rvPedidos;
+
+    private ArrayList<Pedido> pedidos = new ArrayList<>();
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -82,7 +86,7 @@ public class Pedidos extends AppCompatActivity {
         rvPedidos = findViewById(R.id.rvPedidos);
         try{
             String sql = "SELECT * FROM pedidos p JOIN restaurantes r ON r.idRestaurante = p.idRestaurante " +
-                    "WHERE p.idUsuario = "+idUsuario;
+                    "WHERE p.idUsuario = "+idUsuario+" ORDER BY datetime(p.data) DESC";
             cursor = bd.rawQuery(sql,null);
 
         }
@@ -90,7 +94,6 @@ public class Pedidos extends AppCompatActivity {
             Toast.makeText(this, "Problema ao buscar pedidos, tente novamente", Toast.LENGTH_SHORT).show();
 
         }
-        ArrayList<Pedido> pedidos = new ArrayList<>();
         int count = 0;
 
         cursor.moveToFirst();
@@ -136,6 +139,30 @@ public class Pedidos extends AppCompatActivity {
         rvPedidos.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
 
         rvPedidos.setAdapter(adapter);
+
+        rvPedidos.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        getApplicationContext(), rvPedidos, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent pedidofinalizado = new Intent(getApplicationContext(), PedidoFinalizado.class);
+                        pedidofinalizado.putExtra("idPedido",pedidos.get(position).getIdPedido());
+                        pedidofinalizado.putExtra("idUsuario",idUsuario);
+                        startActivity(pedidofinalizado);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        /* Aqui talvez aparecer um menu para adicionar/remover dos favoritos */
+                    }
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+                }
+                )
+        );
     }
 
     public String atualizaStatus(Cursor cursor, SQLiteDatabase bd, Pedido p){

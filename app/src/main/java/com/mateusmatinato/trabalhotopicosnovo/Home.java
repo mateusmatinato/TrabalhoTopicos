@@ -10,11 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -87,12 +87,10 @@ public class Home extends AppCompatActivity {
             cursor.moveToNext();
             count++;
         }
-
-
         cursor = bd.rawQuery("SELECT * FROM usuarios where idUsuario = " + idUsuario, null);
         cursor.moveToFirst();
         String nomeUsuario = cursor.getString(cursor.getColumnIndex("nome"));
-        tvNome = findViewById(R.id.tvTitulo);
+        tvNome = findViewById(R.id.tvNomeRestaurante);
         tvNome.setText("Bem vindo, " + nomeUsuario);
 
 

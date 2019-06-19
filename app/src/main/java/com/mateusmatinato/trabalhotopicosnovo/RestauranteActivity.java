@@ -88,7 +88,7 @@ public class RestauranteActivity extends AppCompatActivity {
         cursor.moveToFirst();
         String nomeRestaurante = cursor.getString(cursor.getColumnIndex("nome"));
         String tempoEntrega = cursor.getString(cursor.getColumnIndex("tempoEntrega"));
-        tvNome = findViewById(R.id.tvTitulo);
+        tvNome = findViewById(R.id.tvNomeRestaurante);
         tvTempoEntrega = findViewById(R.id.tvTempoEntrega);
         tvNome.setText("" + nomeRestaurante);
         tvTempoEntrega.setText("Entrega em: " + tempoEntrega);

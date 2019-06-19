@@ -2,7 +2,6 @@ package com.mateusmatinato.trabalhotopicosnovo.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +65,7 @@ public class AdapterRestaurantes extends RecyclerView.Adapter<AdapterRestaurante
             super(itemView);
 
             //linka os elementos do layout aos atributos da classe
-            nome = itemView.findViewById(R.id.tvTitulo);
+            nome = itemView.findViewById(R.id.tvNomeRestaurante);
             endereco = itemView.findViewById(R.id.tvEndereco);
             telefone = itemView.findViewById(R.id.tvTelefone);
             imagem = itemView.findViewById(R.id.imgRestaurante);

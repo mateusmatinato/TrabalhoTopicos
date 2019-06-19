@@ -69,12 +69,12 @@
         app:layout_constraintTop_toBottomOf="@+id/rgPagamento" />
 
     <TextView
-        android:id="@+id/tvNomeRestaurante"
+        android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Finalizar Pedido"
+        android:text="Pedido Finalizado"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -135,7 +135,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:text="Previsão de entrega: 35 a 45 min"
+        android:text="Realizado em: 18/05/2019 - 18:30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.005"
         app:layout_constraintStart_toStartOf="parent"
@@ -238,6 +238,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvSubTotal" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="26dp"
@@ -246,7 +247,7 @@
     <RadioGroup
         android:id="@+id/rgPagamento"
         android:layout_width="147dp"
-        android:layout_height="97dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -278,27 +279,6 @@
     </RadioGroup>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/textLayoutTroco"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@+id/rgPagamento"
-        app:layout_constraintTop_toBottomOf="@+id/tv5">
-
-        <EditText
-            android:id="@+id/etTroco"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Troco para"
-            android:inputType="numberDecimal"
-            android:textSize="12sp" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
         android:id="@+id/textLayoutObs"
         android:layout_width="395dp"
         android:layout_height="wrap_content"
@@ -318,17 +298,31 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/btnFinalizar"
+        android:id="@+id/btnVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:text="Finalizar Pedido"
+        android:text="Voltar"
         android:textColor="@android:color/background_light"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textLayoutObs" />
+
+    <TextView
+        android:id="@+id/tvTroco"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:text="Troco:"
+        android:textColor="@android:color/background_dark"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/rgPagamento"
+        app:layout_constraintTop_toBottomOf="@+id/tv5" />
 
 </android.support.constraint.ConstraintLayout>

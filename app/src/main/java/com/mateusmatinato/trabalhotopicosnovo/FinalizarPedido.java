@@ -64,7 +64,10 @@ public class FinalizarPedido extends AppCompatActivity {
                     finish();
                     break;
                 case R.id.navigation_perfil:
-
+                    Intent perfil = new Intent(getApplicationContext(), Perfil.class);
+                    perfil.putExtra("idUsuario", idUsuario);
+                    finish();
+                    startActivity(perfil);
                     break;
             }
             return false;
@@ -85,13 +88,13 @@ public class FinalizarPedido extends AppCompatActivity {
         idRestaurante = intent.getIntExtra("idRestaurante", 0);
         listaItens = (HashMap<Integer, Integer>) intent.getSerializableExtra("listaPedidos");
 
-        nomeRestaurante = findViewById(R.id.tvTitulo);
+        nomeRestaurante = findViewById(R.id.tvNomeRestaurante);
         enderecoUsuario = findViewById(R.id.tvEndereco);
-        tempoEntrega = findViewById(R.id.tvEntrega);
+        tempoEntrega = findViewById(R.id.tvHoraPedido);
         subTotal = findViewById(R.id.tvSubTotal);
         taxaEntrega = findViewById(R.id.tvSubTotal2);
         totalPedido = findViewById(R.id.tvPrecoTotalFinalizar);
-        itensPedido = findViewById(R.id.tvStatus);
+        itensPedido = findViewById(R.id.tvItens);
         btnFinalizar = findViewById(R.id.btnFinalizar);
         rgPagamento = findViewById(R.id.rgPagamento);
         troco = findViewById(R.id.textLayoutTroco);
@@ -159,12 +162,14 @@ public class FinalizarPedido extends AppCompatActivity {
 
                     Double valorTotal = Double.parseDouble(totalPedido.getText().toString().substring(3).replace(",", "."));
 
+                    int metodoPagamento = rgPagamento.getCheckedRadioButtonId();
+
                     boolean erro = false;
                     try {
                         //Salva o pedido
                         String sql = "INSERT INTO pedidos (idRestaurante, idUsuario, status, observacao," +
-                                " data, troco, precoTotal) VALUES (" + idRestaurante + "," + idUsuario + ",'Em andamento','" + obs + "','" +
-                                "" + dataAtual + "'," + trocoDouble + "," + valorTotal + ")";
+                                " data, troco, precoTotal, metodoPagamento) VALUES (" + idRestaurante + "," + idUsuario + ",'Em andamento','" + obs + "','" +
+                                "" + dataAtual + "'," + trocoDouble + "," + valorTotal + "," + metodoPagamento +")";
                         //Log.d("SQL", sql);
                         bd.execSQL(sql);
                         Cursor cursor = bd.rawQuery("SELECT seq FROM sqlite_sequence WHERE name = ?", new String[]{"pedidos"});
@@ -177,6 +182,7 @@ public class FinalizarPedido extends AppCompatActivity {
 
                             sql = "INSERT INTO itensPedido (idPedido, idProduto,quantidade) " +
                                     "VALUES (" + idPedido + "," + item.getKey().toString() + "," + item.getValue().toString()+")";
+                            bd.execSQL(sql);
                             //Log.d("SQL", sql);
 
                         }
