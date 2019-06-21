@@ -26,30 +26,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Verifica se tem alguém logado
-        final SharedPreferences sp=getSharedPreferences("LoginTrabalhoTopicos", MODE_PRIVATE);
-        int idUsuario = sp.getInt("idUsuarioLogado",-1);
-        int permissaoUsuario = sp.getInt("nivelUsuario",-1);
-        Log.d("LOGIN","ID USUARIO: "+idUsuario+" - NIVEL: "+permissaoUsuario);
+        final SharedPreferences sp = getSharedPreferences("LoginTrabalhoTopicos", MODE_PRIVATE);
 
-        /* Para resetar o aplicativo tire essa parte comentada
+        //Para resetar o aplicativo tire essa parte comentada
+/*
         deleteDatabase("trabalhoTopicos");
         SharedPreferences.Editor Ed=sp.edit();
         Ed.putInt("idUsuarioLogado", -1);
         Ed.putInt("nivelUsuario",-1);
-        Ed.commit();
-        */
-        if(idUsuario != -1){
-            if(permissaoUsuario == 0){
+        Ed.commit();*/
+
+        int idUsuario = sp.getInt("idUsuarioLogado", -1);
+        int permissaoUsuario = sp.getInt("nivelUsuario", -1);
+        Log.d("LOGIN", "ID USUARIO: " + idUsuario + " - NIVEL: " + permissaoUsuario);
+        if (idUsuario != -1) {
+            if (permissaoUsuario == 0) {
                 //User
                 Intent inicio = new Intent(getApplicationContext(), Home.class);
-                inicio.putExtra("idUsuario",idUsuario);
+                inicio.putExtra("idUsuario", idUsuario);
                 finish();
                 startActivity(inicio);
-            }
-            else if(permissaoUsuario == 1){
+            } else if (permissaoUsuario == 1) {
                 //Admin
-                Intent admin = new Intent(getApplicationContext(),Admin.class);
-                admin.putExtra("idUsuario",idUsuario);
+                Intent admin = new Intent(getApplicationContext(), Admin.class);
+                admin.putExtra("idUsuario", idUsuario);
                 finish();
                 startActivity(admin);
             }
@@ -78,20 +78,20 @@ public class MainActivity extends AppCompatActivity {
                     //Usuário pode logar
                     int idUsuario = cursor.getInt(cursor.getColumnIndex("idUsuario"));
                     int isAdmin = cursor.getInt(cursor.getColumnIndex("admin"));
-                    SharedPreferences.Editor Ed=sp.edit();
+                    SharedPreferences.Editor Ed = sp.edit();
                     Ed.putInt("idUsuarioLogado", idUsuario);
-                    Ed.putInt("nivelUsuario",isAdmin);
+                    Ed.putInt("nivelUsuario", isAdmin);
                     Ed.commit();
 
                     if (isAdmin == 1) {
-                        Intent admin = new Intent(getApplicationContext(),Admin.class);
-                        admin.putExtra("idUsuario",idUsuario);
+                        Intent admin = new Intent(getApplicationContext(), Admin.class);
+                        admin.putExtra("idUsuario", idUsuario);
                         finish();
                         startActivity(admin);
 
                     } else {
                         Intent inicio = new Intent(getApplicationContext(), Home.class);
-                        inicio.putExtra("idUsuario",idUsuario);
+                        inicio.putExtra("idUsuario", idUsuario);
                         finish();
                         startActivity(inicio);
                     }

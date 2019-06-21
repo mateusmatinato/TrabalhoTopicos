@@ -147,6 +147,7 @@ public class RestauranteActivity extends AppCompatActivity {
             p.setPreco(cursor.getDouble(cursor.getColumnIndex("preco")));
             p.setImagem(cursor.getInt(cursor.getColumnIndex("imagem")));
             p.setIdProduto(cursor.getInt(cursor.getColumnIndex("idProduto")));
+            p.setQuantidade(0);
             produtos.add(p);
 
             cursor.moveToNext();
@@ -171,16 +172,13 @@ public class RestauranteActivity extends AppCompatActivity {
                 finalizarPedido.putExtra("idUsuario", idUsuario);
                 finalizarPedido.putExtra("idRestaurante", idRestaurante);
 
-
                 HashMap<Integer, Integer> listaPedido = new HashMap<Integer, Integer>();
                 TextView itemAtual, qtdAtual, idItemAtual;
-                for (int i = 0; i < rvProdutos.getChildCount(); i++) {
-                    qtdAtual = rvProdutos.findViewHolderForAdapterPosition(i).itemView.findViewById(R.id.tvQuantidade);
-                    int qtd = Integer.parseInt(qtdAtual.getText().toString());
+                for (int i = 0; i < produtos.size(); i++) {
+                    int qtd = produtos.get(i).getQuantidade();
                     if (qtd != 0) {
                         //Esse produto foi selecionado, adiciona na lista do pedido
-                        idItemAtual = rvProdutos.findViewHolderForAdapterPosition(i).itemView.findViewById(R.id.tvIdProduto);
-                        listaPedido.put(Integer.parseInt(idItemAtual.getText().toString()), qtd);
+                        listaPedido.put(produtos.get(i).getIdProduto(), qtd);
                     }
                 }
                 finalizarPedido.putExtra("listaPedidos", listaPedido);
@@ -196,7 +194,7 @@ public class RestauranteActivity extends AppCompatActivity {
     }
 
     public void alteraPrecoTotal(Double precoItem, int flag) {
-        DecimalFormat df2 = new DecimalFormat("#.##");
+        DecimalFormat df2 = new DecimalFormat("#,##0.00");
         String precoAtualString = precoTotal.getText().toString().substring(3).replace(",", ".");
         double precoAtual = Double.parseDouble(precoAtualString);
         if (flag == 1) {

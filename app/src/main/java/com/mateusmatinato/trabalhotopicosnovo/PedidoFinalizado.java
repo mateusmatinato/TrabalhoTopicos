@@ -30,7 +30,7 @@ public class PedidoFinalizado extends AppCompatActivity {
     private TextView tvNome;
     private SQLiteDatabase bd;
 
-    private DecimalFormat df2 = new DecimalFormat("#.##");
+    private DecimalFormat df2 = new DecimalFormat("#,##0.00");
 
     private int idUsuario;
     private int idPedido;
@@ -47,7 +47,6 @@ public class PedidoFinalizado extends AppCompatActivity {
     private Button btnVoltar;
 
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -61,10 +60,6 @@ public class PedidoFinalizado extends AppCompatActivity {
                     startActivity(home);
                     break;
                 case R.id.navigation_pedidos:
-                    Intent pedidos = new Intent(getApplicationContext(), Pedidos.class);
-                    pedidos.putExtra("idUsuario", idUsuario);
-                    startActivity(pedidos);
-                    finish();
                     break;
                 case R.id.navigation_perfil:
                     Intent perfil = new Intent(getApplicationContext(), Perfil.class);
@@ -92,6 +87,7 @@ public class PedidoFinalizado extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().findItem(R.id.navigation_pedidos).setChecked(true);
 
         tvPrecoTotal = findViewById(R.id.tvPrecoTotalFinalizar);
         rgPagamento = findViewById(R.id.rgPagamento);
@@ -114,37 +110,36 @@ public class PedidoFinalizado extends AppCompatActivity {
                             "p.status, p.observacao, p.metodoPagamento, " +
                             "p.precoTotal, p.Troco FROM pedidos p JOIN restaurantes r " +
                             "ON r.idRestaurante = p.idRestaurante JOIN usuarios u " +
-                            "ON u.idUsuario = p.idUsuario WHERE p.idPedido = "+idPedido
-                    ,null);
+                            "ON u.idUsuario = p.idUsuario WHERE p.idPedido = " + idPedido
+                    , null);
             cursor.moveToFirst();
 
-            tvTitulo.setText("Pedido "+cursor.getString(cursor.getColumnIndex("status")));
-            tvEndereco.setText("Entregar em: "+cursor.getString(cursor.getColumnIndex("endereco")));
+            tvTitulo.setText("Pedido " + cursor.getString(cursor.getColumnIndex("status")));
+            tvEndereco.setText("Entregar em: " + cursor.getString(cursor.getColumnIndex("endereco")));
 
-            Date date1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(cursor.getColumnIndex("data")));
+            Date date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(cursor.getColumnIndex("data")));
             DateFormat dateFormat = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
-            tvHoraPedido.setText("Realizado em: "+dateFormat.format(date1));
+            tvHoraPedido.setText("Realizado em: " + dateFormat.format(date1));
 
             tvNomeRestaurante.setText(cursor.getString(cursor.getColumnIndex("nome")));
-            tvEntrega.setText("R$: "+df2.format(cursor.getDouble(cursor.getColumnIndex("taxaEntrega"))));
+            tvEntrega.setText("R$: " + df2.format(cursor.getDouble(cursor.getColumnIndex("taxaEntrega"))));
             valorEntrega = cursor.getDouble(cursor.getColumnIndex("taxaEntrega"));
 
-            tvPrecoTotal.setText("R$: "+df2.format(cursor.getDouble(cursor.getColumnIndex("precoTotal"))));
+            tvPrecoTotal.setText("R$: " + df2.format(cursor.getDouble(cursor.getColumnIndex("precoTotal"))));
             rgPagamento.check(cursor.getInt(cursor.getColumnIndex("metodoPagamento")));
 
-            if(!cursor.getString(cursor.getColumnIndex("observacao")).equals("")) {
+            if (!cursor.getString(cursor.getColumnIndex("observacao")).equals("")) {
                 etObservacao.setText(cursor.getString(cursor.getColumnIndex("observacao")));
                 etObservacao.setFocusable(false);
-            }
-            else{
+            } else {
                 etObservacao.setVisibility(View.GONE);
             }
-            if(rgPagamento.getCheckedRadioButtonId() == R.id.radioDinheiro){
-                tvTroco.setText("Troco: R$ "+ df2.format(cursor.getDouble(cursor.getColumnIndex("troco"))));
+            if (rgPagamento.getCheckedRadioButtonId() == R.id.radioDinheiro) {
+                tvTroco.setText("Troco: R$ " + df2.format(cursor.getDouble(cursor.getColumnIndex("troco"))));
                 tvTroco.setVisibility(View.VISIBLE);
             }
-            for(int i = 0 ; i < rgPagamento.getChildCount(); i++){
-                if(rgPagamento.getChildAt(i).getId() != cursor.getInt(cursor.getColumnIndex("metodoPagamento"))){
+            for (int i = 0; i < rgPagamento.getChildCount(); i++) {
+                if (rgPagamento.getChildAt(i).getId() != cursor.getInt(cursor.getColumnIndex("metodoPagamento"))) {
                     rgPagamento.getChildAt(i).setVisibility(View.GONE);
                 }
             }
@@ -155,28 +150,27 @@ public class PedidoFinalizado extends AppCompatActivity {
                     finish();
                 }
             });
-        }
-        catch (SQLiteException|ParseException e){
+        } catch (SQLiteException | ParseException e) {
             Toast.makeText(this, "Erro ao buscar pedido, tente novamente.", Toast.LENGTH_SHORT).show();
         }
 
-        try{
+        try {
             cursor = bd.rawQuery("SELECT p.nome, p.preco, ip.quantidade FROM itensPedido ip JOIN produtos p " +
-                    "ON p.idProduto = ip.idProduto WHERE ip.idPedido = "+idPedido,null);
+                    "ON p.idProduto = ip.idProduto WHERE ip.idPedido = " + idPedido, null);
             cursor.moveToFirst();
             String listaItens = "";
-            for(int i = 0 ; i < cursor.getCount() ; i++){
-                listaItens += cursor.getInt(cursor.getColumnIndex("quantidade")) +"x ";
+            for (int i = 0; i < cursor.getCount(); i++) {
+                listaItens += cursor.getInt(cursor.getColumnIndex("quantidade")) + "x ";
                 listaItens += cursor.getString(cursor.getColumnIndex("nome"));
-                if(i != cursor.getCount()-1) listaItens += "\n";
+                if (i != cursor.getCount() - 1) listaItens += "\n";
                 valorItens += cursor.getDouble(cursor.getColumnIndex("preco"))
                         * cursor.getInt(cursor.getColumnIndex("quantidade"));
+                cursor.moveToNext();
             }
             tvItens.setText(listaItens);
-            tvValorItens.setText("R$: "+df2.format(valorItens));
+            tvValorItens.setText("R$: " + df2.format(valorItens));
 
-        }
-        catch(SQLiteException e){
+        } catch (SQLiteException e) {
             Toast.makeText(this, "Erro ao buscar itens do pedido, tente novamente.", Toast.LENGTH_SHORT).show();
         }
 

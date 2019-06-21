@@ -85,21 +85,82 @@ public class Database {
             bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (1,'Fanta - Lata 310 ml',4.00,'Fanta lata 310ml gelada')");
 
             //Insere produtos no restaurante 2
-
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Cheese Bacon',16.00,'Hambúrguer, queijo mozarela, alface, tomate e bacon.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Jerseys',16.00,'Hambúrguer, queijo mozarela, cebola grelhada na chapa, ovo frito e bacon.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Volcano',17.00,'Hambúrguer, queijo mozarela, onion rings, cheddar cremoso e bacon.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Cheese Catupiry',16.00,'Hambúrguer, queijo mozarela, Catupiry Original e alho frito.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Bacon Lover',17.00,'Hambúrguer, queijo mozarela e muito bacon.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Corner',16.00,'Hambúrguer, queijo cheddar, picles de pepino e cebola roxa.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Dog Tudo',16.00,'Pão de hambúrguer, salsicha, carne, frango ou misto, bacon, presunto, muçarela, bacon, ketchup, maionese e batata palha!')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Dog Tradicional',11.00,'Pão de hotdog, salsicha, (carne, , frango ou misto) ketchup, maionese e batata palha!')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Batata Palito',6.00,'Porção de Batata Palito')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Coca Cola 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (2,'Cerveja Heineken Long Neck',7.00,'')");
 
             //Insere produtos no restaurante 3
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (3,'Frappuccinno 300ml',13.00,'Café + chocolate suíço + leite Ninho + sorvete de creme + biscoito cookies.  ')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (3,'Sundae 250ml',14.00,'Sorvete de creme com cobertura de chocolate. Acompanha farofa doce e amendoim.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (3,'Smoothie de iogurte natural com sorvete e polpa de frutas 300ml',12.00,'50% de iogurte natural, 50% de sorvete + polpa de frutas de sua preferência')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (3,'Escondidinho de morango',14.00,'Morangos picados cobertos de chocolate com avelã, sorvete de creme, leite Ninho e leite condensado')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (3,'Arrumadinho de morango',12.00,'Farofa doce feita com paçoca e leite em pó, morangos (fruta), sorvete de creme, cobertura de chocolate')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (3,'Frapê de maracujá com chocolate',14.00,'Maracujá batido com sorvete de creme e cobertura de chocolate')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (3,'Fondue de morango com chocolate',14.00,'100 gramas de morango, acompanhado de chocolate derretido quentinho.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (3,'Milk shake Nutella 500 ml',18.00,'Sorvete de creme com Nutella')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (3,'Sundae com nutella 250 ml',15.00,'Sorvete de creme, nutella, farofa doce, amendoim.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (3,'Água mineral 510ml',6.00,'Garrafa 510 ml')");
 
             //Insere produtos no restaurante 4
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (4,'Combo hunger família',68.00,'1 pizza família 35cm + 1 crostini + 1 pizza doce individual + 1 refri ou suco grande')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (4,'Combo casal',42.00,'2 pizzas + 1 crostini + 1 refri 600ml. O combo ideal para duas pessoas.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (4,'Pizza pollo maiale',42.00,'Molho de tomate pelado, queijo muçarela, frango desfiado, Catupiry, fatias de bacon, azeitona preta e orégano.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (4,'Pizza da calábria',38.00,'Molho de tomate pelado, queijo muçarela, calabresa em rodelas, azeitonas pretas, orégano e cebola roxa.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (4,'Pizza la mia donna',47.00,'Molho de tomate pelado, queijo muçarela, Catupiry, parmesão, bacon, tomates cereja e orégano.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (4,'Pizza canadense',52.00,'Molho de tomate pelado, lombo canadense fatiado, queijo muçarela, Catupiry, azeitonas pretas e orégano.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (4,'Pizza di napoli',49.00,'Molho de tomate pelado, presunto em lascas, queijo muçarela, bacon, tomates em cubos e orégano.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (4,'Pizza la portuga',50.00,'Molho de tomate pelado, presunto em lascas, queijo muçarela, ovo de codorna, ervilhas frescas, orégano e cebola roxa.')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (4,'Coca-Cola 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (4,'Fanta 2 Litros',10.00,'')");
 
             //Insere produtos no restaurante 5
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (5,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (5,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (5,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (5,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (5,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (5,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (5,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (5,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (5,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (5,'Fanta 2 Litros',10.00,'')");
 
             //Insere produtos no restaurante 6
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (6,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (6,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (6,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (6,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (6,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (6,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (6,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (6,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (6,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (6,'Fanta 2 Litros',10.00,'')");
 
-            //bd.execSQL("INSERT INTO usuarios (email,senha,nome,telefone,endereco, admin) VALUES ('mateus.matinato@unesp.br','1234','Administrador','997712491','Teste',0)");
-            //bd.execSQL("INSERT INTO usuarios (email,senha,nome,telefone,endereco, admin) VALUES ('mateusmatinato@gmail.com','1234','Mateus Matinato','997712491','Teste',1)");
+            //Insere produtos no restaurante 7
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (7,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (7,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (7,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (7,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (7,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (7,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (7,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (7,'Fanta 2 Litros',10.00,'')");
+            bd.execSQL("INSERT INTO produtos(idRestaurante,nome,preco,descricao) VALUES (7,'Fanta 2 Litros',10.00,'')");
 
+            bd.execSQL("INSERT INTO usuarios (email,senha,nome,telefone,endereco, admin) VALUES ('mateus.matinato@unesp.br','1234','Mateus Matinato','997712491','Rua Cristóvão Colombo, 1125 - Jardim Nazareth',0)");
+            Log.d("DADOS INICIAIS", "DADOS INICIAIS INSERIDOS COM SUCESSO");
         } catch (SQLException e) {
-            Log.d("ERRO DADOS INICIAIS",""+e.getMessage());
+            Log.d("DADOS INICIAIS","ERRO: "+e.getMessage());
         }
     }
 }

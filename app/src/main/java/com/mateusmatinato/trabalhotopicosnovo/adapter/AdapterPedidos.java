@@ -21,7 +21,7 @@ public class AdapterPedidos extends RecyclerView.Adapter<AdapterPedidos.MyViewHo
     private List<Pedido> listaPedidos;
     private SQLiteDatabase bd;
 
-    private DecimalFormat df2 = new DecimalFormat("#.##");
+    private DecimalFormat df2 = new DecimalFormat("#,##0.00");
 
     public AdapterPedidos(List<Pedido> listaPedidos) {
         this.listaPedidos = listaPedidos;

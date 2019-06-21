@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,8 +29,12 @@ public class Home extends AppCompatActivity {
 
     private RecyclerView recyclerRestaurantes;
     private List<Restaurante> restaurantes = new ArrayList<>();
+    private List<Restaurante> restaurantesCopia = new ArrayList<>();
     private SQLiteDatabase bd;
     private TextView tvNome;
+    private EditText etBuscar;
+
+    private AdapterRestaurantes adapter;
 
     private int idUsuario;
 
@@ -83,6 +88,7 @@ public class Home extends AppCompatActivity {
             r.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("idRestaurante"))));
             r.setImagem(cursor.getInt(cursor.getColumnIndex("imagem")));
             restaurantes.add(r);
+            restaurantesCopia.add(r);
 
             cursor.moveToNext();
             count++;
@@ -94,7 +100,7 @@ public class Home extends AppCompatActivity {
         tvNome.setText("Bem vindo, " + nomeUsuario);
 
 
-        AdapterRestaurantes adapter = new AdapterRestaurantes(restaurantes);
+        adapter = new AdapterRestaurantes(restaurantes);
 
         // Configurar RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -130,6 +136,29 @@ public class Home extends AppCompatActivity {
                 }
                 )
         );
+
+        btnBuscar = findViewById(R.id.btnBuscar);
+        etBuscar = findViewById(R.id.etBuscar);
+        btnBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(etBuscar.getText().length() == 0){
+                    restaurantes.clear();
+                    restaurantes.addAll(restaurantesCopia);
+                }
+                else{
+                    String busca = etBuscar.getText().toString().toLowerCase();
+                    restaurantes.clear();
+                    for(int i = 0 ; i < restaurantesCopia.size() ; i++){
+                        String nomeRestaurante = restaurantesCopia.get(i).getNome().toLowerCase();
+                        if(nomeRestaurante.contains(busca)){
+                            restaurantes.add(restaurantesCopia.get(i));
+                        }
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
 }

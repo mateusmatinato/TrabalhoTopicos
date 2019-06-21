@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +29,7 @@ public class FinalizarPedido extends AppCompatActivity {
     private TextView tvNome;
     private SQLiteDatabase bd;
 
-    private DecimalFormat df2 = new DecimalFormat("#.##");
+    private DecimalFormat df2 = new DecimalFormat("#,##0.00");
 
     private int idUsuario;
     private int idRestaurante;

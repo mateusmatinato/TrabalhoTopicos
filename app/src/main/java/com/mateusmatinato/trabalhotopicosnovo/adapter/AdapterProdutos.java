@@ -17,7 +17,7 @@ import java.util.List;
 
 public class AdapterProdutos extends RecyclerView.Adapter<AdapterProdutos.MyViewHolder>{
     private List<Produto> listaProdutos;
-    private static DecimalFormat df2 = new DecimalFormat("#.##");
+    private static DecimalFormat df2 = new DecimalFormat("#,##0.00");
     private RestauranteActivity restauranteActivity;
 
     public AdapterProdutos(List<Produto> listaProdutos, RestauranteActivity restauranteActivity) {
@@ -49,6 +49,7 @@ public class AdapterProdutos extends RecyclerView.Adapter<AdapterProdutos.MyView
         myViewHolder.descricao.setText(listaProdutos.get(i).getDescricao());
         myViewHolder.preco.setText("R$: "+df2.format(listaProdutos.get(i).getPreco()));
         myViewHolder.idProduto.setText(""+listaProdutos.get(i).getIdProduto());
+        myViewHolder.quantidade.setText(""+listaProdutos.get(i).getQuantidade());
 
         myViewHolder.btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +59,7 @@ public class AdapterProdutos extends RecyclerView.Adapter<AdapterProdutos.MyView
                     qtd--;
                     restauranteActivity.alteraPrecoTotal(listaProdutos.get(indice).getPreco(),0);
                     myViewHolder.quantidade.setText(""+qtd);
+                    listaProdutos.get(indice).setQuantidade(qtd);
                 }
                 //Toast.makeText(myViewHolder.btnMinus.getContext(), "CLICOU NO MENOS", Toast.LENGTH_SHORT).show();
             }
@@ -71,6 +73,7 @@ public class AdapterProdutos extends RecyclerView.Adapter<AdapterProdutos.MyView
                     qtd++;
                     restauranteActivity.alteraPrecoTotal(listaProdutos.get(indice).getPreco(),1);
                     myViewHolder.quantidade.setText(""+qtd);
+                    listaProdutos.get(indice).setQuantidade(qtd);
                 }
                 //Toast.makeText(myViewHolder.btnAdd.getContext(), "CLICOU NO MAIS", Toast.LENGTH_SHORT).show();
             }
