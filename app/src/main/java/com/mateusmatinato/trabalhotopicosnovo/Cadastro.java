@@ -31,12 +31,15 @@ public class Cadastro extends AppCompatActivity {
         tlTelefone = findViewById(R.id.textLayoutTelefone);
         tlEndereco = findViewById(R.id.textLayoutEndereco);
 
+        /* Lógica para cadastro do usuário */
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean erro = false;
+                /* Expressão para validação de email */
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                //Está atualizando os dados, deve primeiro verificar se todos foram preenchidos
+
+                /* Verificar se todos os campos foram preenchidos */
                 if (tlNome.getEditText().getText().length() == 0 ||
                         tlEmail.getEditText().getText().length() == 0 ||
                         tlSenha.getEditText().getText().length() == 0 ||
@@ -46,12 +49,12 @@ public class Cadastro extends AppCompatActivity {
                     erro = true;
                     Toast.makeText(Cadastro.this, "Preencha todos os campos.", Toast.LENGTH_SHORT).show();
                 } else {
-                    //Preencheu todos, deve verificar se o email é valido
+                    /* Preencheu todos os campos, deve validar o email pela expressão regular */
                     if (!tlEmail.getEditText().getText().toString().trim().matches(emailPattern)) {
                         erro = true;
                         Toast.makeText(Cadastro.this, "Insira um email válido.", Toast.LENGTH_SHORT).show();
                     } else {
-                        //Email é valido também, deve verificar se a senha possui mais que 4 caracteres
+                        /* Valida tamanho da senha */
                         if (tlSenha.getEditText().getText().length() < 4) {
                             erro = true;
                             Toast.makeText(Cadastro.this, "A sua senha deve conter 4 caracteres ou mais.", Toast.LENGTH_SHORT).show();
@@ -60,12 +63,13 @@ public class Cadastro extends AppCompatActivity {
                 }
 
                 if(!erro){
-                    //Verifica se o email já existe...
+                    /* Validações iniciais foram realizadas, deve verificar se o email inserido
+                    * já existe no banco. */
                     try{
                         String email = tlEmail.getEditText().getText().toString();
                         Cursor cursor = bd.rawQuery("SELECT * FROM usuarios WHERE email = ?", new String[]{email});
                         if(cursor.getCount() == 0){
-                            //pode cadastrar
+                            /* O email não existe, então pode cadastrar (salva na tabela usuarios) */
                             String nome = tlNome.getEditText().getText().toString();
                             String senha = tlSenha.getEditText().getText().toString();
                             String telefone = tlTelefone.getEditText().getText().toString();
@@ -73,7 +77,6 @@ public class Cadastro extends AppCompatActivity {
                             bd.execSQL("INSERT INTO usuarios (nome, email, senha, telefone, endereco) VALUES (?,?,?,?,?)"
                             , new String[]{nome,email,senha,telefone,endereco});
                             Toast.makeText(Cadastro.this, "Cadastro efetuado com sucesso.", Toast.LENGTH_SHORT).show();
-
                             finish();
                         }
                         else{

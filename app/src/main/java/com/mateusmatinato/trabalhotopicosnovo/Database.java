@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 public class Database {
+    /* A função dessa classe é somente para criar o banco e inserir os dados iniciais */
 
     public void criaBase(SQLiteDatabase bd){
         //Cria tabela de usuários

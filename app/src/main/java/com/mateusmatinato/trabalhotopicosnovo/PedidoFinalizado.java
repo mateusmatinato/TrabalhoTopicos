@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +22,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 public class PedidoFinalizado extends AppCompatActivity {
 
@@ -81,6 +79,7 @@ public class PedidoFinalizado extends AppCompatActivity {
         bd = openOrCreateDatabase("trabalhoTopicos", MODE_PRIVATE, null);
         Cursor cursor;
 
+        /* Pega dados da intent: id do usuário e id do pedido que será visualizado */
         Intent intent = getIntent();
         idUsuario = intent.getIntExtra("idUsuario", 0);
         idPedido = intent.getIntExtra("idPedido", 0);
@@ -93,7 +92,7 @@ public class PedidoFinalizado extends AppCompatActivity {
         rgPagamento = findViewById(R.id.rgPagamento);
         tvTroco = findViewById(R.id.tvTroco);
         tvTitulo = findViewById(R.id.tvTitulo);
-        tvNomeRestaurante = findViewById(R.id.tvNomeRestaurante);
+        tvNomeRestaurante = findViewById(R.id.tvTitulo);
         tvEndereco = findViewById(R.id.tvEndereco);
         tvHoraPedido = findViewById(R.id.tvHoraPedido);
         etObservacao = findViewById(R.id.etObs);
@@ -105,6 +104,7 @@ public class PedidoFinalizado extends AppCompatActivity {
         double valorEntrega = 0;
         double valorItens = 0;
 
+        /* Pega dados gerais do pedido, do usuário e do restaurante */
         try {
             cursor = bd.rawQuery("SELECT u.endereco, r.nome, r.taxaEntrega, p.data, " +
                             "p.status, p.observacao, p.metodoPagamento, " +
@@ -114,6 +114,7 @@ public class PedidoFinalizado extends AppCompatActivity {
                     , null);
             cursor.moveToFirst();
 
+            /* Configura a página com as informações buscadas no banco */
             tvTitulo.setText("Pedido " + cursor.getString(cursor.getColumnIndex("status")));
             tvEndereco.setText("Entregar em: " + cursor.getString(cursor.getColumnIndex("endereco")));
 
@@ -128,12 +129,15 @@ public class PedidoFinalizado extends AppCompatActivity {
             tvPrecoTotal.setText("R$: " + df2.format(cursor.getDouble(cursor.getColumnIndex("precoTotal"))));
             rgPagamento.check(cursor.getInt(cursor.getColumnIndex("metodoPagamento")));
 
+            /* Verifica se tem observações, se não possuir oculta, se possuir mostra e deixa somente vísivel*/
             if (!cursor.getString(cursor.getColumnIndex("observacao")).equals("")) {
                 etObservacao.setText(cursor.getString(cursor.getColumnIndex("observacao")));
                 etObservacao.setFocusable(false);
             } else {
                 etObservacao.setVisibility(View.GONE);
             }
+
+            /* Verifica se selecionou pagamento por dinheiro, em caso positivo mostra o campo troco */
             if (rgPagamento.getCheckedRadioButtonId() == R.id.radioDinheiro) {
                 tvTroco.setText("Troco: R$ " + df2.format(cursor.getDouble(cursor.getColumnIndex("troco"))));
                 tvTroco.setVisibility(View.VISIBLE);
@@ -154,11 +158,14 @@ public class PedidoFinalizado extends AppCompatActivity {
             Toast.makeText(this, "Erro ao buscar pedido, tente novamente.", Toast.LENGTH_SHORT).show();
         }
 
+        /* Buscar os itens do pedido */
         try {
             cursor = bd.rawQuery("SELECT p.nome, p.preco, ip.quantidade FROM itensPedido ip JOIN produtos p " +
                     "ON p.idProduto = ip.idProduto WHERE ip.idPedido = " + idPedido, null);
             cursor.moveToFirst();
             String listaItens = "";
+
+            /* Para cada um dos itens do pedido deve adicionar na string e somar no valor */
             for (int i = 0; i < cursor.getCount(); i++) {
                 listaItens += cursor.getInt(cursor.getColumnIndex("quantidade")) + "x ";
                 listaItens += cursor.getString(cursor.getColumnIndex("nome"));

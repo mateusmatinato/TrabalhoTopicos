@@ -79,7 +79,7 @@ public class AdapterPedidos extends RecyclerView.Adapter<AdapterPedidos.MyViewHo
             super(itemView);
 
             //linka os elementos do layout aos atributos da classe
-            nomeRestaurante = itemView.findViewById(R.id.tvNomeRestaurante);
+            nomeRestaurante = itemView.findViewById(R.id.tvTitulo);
             status = itemView.findViewById(R.id.tvItens);
             precoTotal = itemView.findViewById(R.id.tvPrecoPedido);
             dia = itemView.findViewById(R.id.tvDia);

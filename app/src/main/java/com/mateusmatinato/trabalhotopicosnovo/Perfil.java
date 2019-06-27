@@ -109,7 +109,7 @@ public class Perfil extends AppCompatActivity {
         }
 
 
-
+        /* Lógica do botão sair (muda as preferencias para pedir email e senha) e redireciona para login */
         btnSair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +123,7 @@ public class Perfil extends AppCompatActivity {
             }
         });
 
+        /* Lógica para atualizar cadastro do usuário */
         btnAtualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

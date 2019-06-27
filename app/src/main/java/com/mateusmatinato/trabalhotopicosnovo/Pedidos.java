@@ -51,7 +51,7 @@ public class Pedidos extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Intent home = new Intent(getApplicationContext(), Home.class);
-                    home.putExtra("idUsuario",idUsuario);
+                    home.putExtra("idUsuario", idUsuario);
                     finish();
                     //startActivity(home);
                     break;
@@ -73,8 +73,10 @@ public class Pedidos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedidos);
+
+        /* Pega informações da intent (id do usuário logado) */
         Intent intent = getIntent();
-        idUsuario = intent.getIntExtra("idUsuario",0);
+        idUsuario = intent.getIntExtra("idUsuario", 0);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -83,19 +85,17 @@ public class Pedidos extends AppCompatActivity {
         bd = openOrCreateDatabase("trabalhoTopicos", MODE_PRIVATE, null);
         Cursor cursor = null;
 
-        rvPedidos = findViewById(R.id.rvPedidos);
-        try{
+        /* Busca os pedidos do usuário que está logado */
+        try {
             String sql = "SELECT * FROM pedidos p JOIN restaurantes r ON r.idRestaurante = p.idRestaurante " +
-                    "WHERE p.idUsuario = "+idUsuario+" ORDER BY datetime(p.data) DESC";
-            cursor = bd.rawQuery(sql,null);
-
-        }
-        catch(SQLiteException e){
+                    "WHERE p.idUsuario = " + idUsuario + " ORDER BY datetime(p.data) DESC";
+            cursor = bd.rawQuery(sql, null);
+        } catch (SQLiteException e) {
             Toast.makeText(this, "Problema ao buscar pedidos, tente novamente", Toast.LENGTH_SHORT).show();
-
         }
         int count = 0;
 
+        /* Percorre todos os pedidos e insere na lista de pedidos */
         cursor.moveToFirst();
         while (count < cursor.getCount()) {
             Pedido p = new Pedido();
@@ -105,15 +105,16 @@ public class Pedidos extends AppCompatActivity {
             p.setIdPedido(cursor.getInt(cursor.getColumnIndex("idPedido")));
             String data = (cursor.getString(cursor.getColumnIndex("data")));
             String status = cursor.getString(cursor.getColumnIndex("status"));
-            try{
-                Date dataPedido=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(data);
+            try {
+                Date dataPedido = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(data);
                 p.setData(dataPedido);
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 p.setData(null);
             }
 
-            if(status.equalsIgnoreCase("Em andamento")){
+            /* Verifica se o status do restaurante é em andamento, caso for, deve verificar se o
+            * tempo de entrega já foi atingido. */
+            if (status.equalsIgnoreCase("Em andamento")) {
                 status = atualizaStatus(cursor, bd, p);
             }
             p.setStatus(status);
@@ -123,9 +124,12 @@ public class Pedidos extends AppCompatActivity {
             cursor.moveToNext();
             count++;
         }
+
+        /* Configurações do recycler view de pedidos */
+        rvPedidos = findViewById(R.id.rvPedidos);
         AdapterPedidos adapter = new AdapterPedidos(pedidos);
 
-        if(pedidos.size() == 0){
+        if (pedidos.size() == 0) {
             //não possui pedidos, mostra o textView
             findViewById(R.id.tvZeroPedidos).setVisibility(View.VISIBLE);
         }
@@ -145,15 +149,15 @@ public class Pedidos extends AppCompatActivity {
                         getApplicationContext(), rvPedidos, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
+                        /* Abre a activity de pedido finalizado para ver detalhes do pedido */
                         Intent pedidofinalizado = new Intent(getApplicationContext(), PedidoFinalizado.class);
-                        pedidofinalizado.putExtra("idPedido",pedidos.get(position).getIdPedido());
-                        pedidofinalizado.putExtra("idUsuario",idUsuario);
+                        pedidofinalizado.putExtra("idPedido", pedidos.get(position).getIdPedido());
+                        pedidofinalizado.putExtra("idUsuario", idUsuario);
                         startActivity(pedidofinalizado);
                     }
 
                     @Override
                     public void onLongItemClick(View view, int position) {
-                        /* Aqui talvez aparecer um menu para adicionar/remover dos favoritos */
                     }
 
                     @Override
@@ -165,7 +169,7 @@ public class Pedidos extends AppCompatActivity {
         );
     }
 
-    public String atualizaStatus(Cursor cursor, SQLiteDatabase bd, Pedido p){
+    public String atualizaStatus(Cursor cursor, SQLiteDatabase bd, Pedido p) {
         /* Aqui vai a lógica para mudar o status do pedido */
         /* Deve pegar o tempo de entrega do restaurante e gerar um número aleatório
          * que esteja no intervalo do tempo de entrega. Deve verificar se:
@@ -173,32 +177,32 @@ public class Pedidos extends AppCompatActivity {
          *   horaAtual <= horaPedido + tempoEntregaAleatorio -> Finalizado
          * */
 
+        /* Gerar número aleatório no intervalo do tempo de entrega */
         String tempoEntregaString[] = cursor.getString(cursor.getColumnIndex("tempoEntrega")).split(" ");
         int tempoInicial = Integer.parseInt(tempoEntregaString[0]);
         int tempoFinal = Integer.parseInt(tempoEntregaString[2]);
         Random random = new Random();
         int minutosEntrega = random.nextInt((tempoFinal - tempoInicial) + 1) + tempoInicial;
+
+        /* Somar o número aleatório na hora do pedido */
         Calendar cal = Calendar.getInstance();
         cal.setTime(p.getData());
         cal.add(Calendar.MINUTE, minutosEntrega);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(cal.getTime());
 
+        /* Comparar hora atual com hora do pedido + tempo entrega */
         Date dataAtual = new Date();
-        Log.d("HORA ATUAL",""+dataAtual.toString());
-        Log.d("HORA DO PEDIDO ENTREGUE",""+strDate);
-        if(dataAtual.compareTo(cal.getTime()) > 0){
+        if (dataAtual.compareTo(cal.getTime()) > 0) {
             //Já entregou
-            try{
+            try {
                 //Atualiza o status do pedido para Finalizado
-                bd.execSQL("UPDATE pedidos SET status = 'Finalizado' WHERE idPedido = "+p.getIdPedido());
-            }
-            catch(SQLiteException e){
+                bd.execSQL("UPDATE pedidos SET status = 'Finalizado' WHERE idPedido = " + p.getIdPedido());
+            } catch (SQLiteException e) {
                 Toast.makeText(this, "Erro!", Toast.LENGTH_SHORT).show();
             }
             return "Finalizado";
-        }
-        else{
+        } else {
             return "Em andamento";
         }
 

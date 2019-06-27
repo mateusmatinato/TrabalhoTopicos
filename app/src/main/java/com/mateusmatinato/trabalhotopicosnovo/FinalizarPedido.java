@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -78,18 +77,18 @@ public class FinalizarPedido extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //overridePendingTransition(R.layout.slide_up, R.layout.slide_down);
         setContentView(R.layout.activity_finalizarpedido);
 
         bd = openOrCreateDatabase("trabalhoTopicos", MODE_PRIVATE, null);
         Cursor cursor;
 
+        /* Pega informações da intent: id do usuário, do restaurante e a lista de itens da sacola */
         Intent intent = getIntent();
         idUsuario = intent.getIntExtra("idUsuario", 0);
         idRestaurante = intent.getIntExtra("idRestaurante", 0);
         listaItens = (HashMap<Integer, Integer>) intent.getSerializableExtra("listaPedidos");
 
-        nomeRestaurante = findViewById(R.id.tvNomeRestaurante);
+        nomeRestaurante = findViewById(R.id.tvTitulo);
         enderecoUsuario = findViewById(R.id.tvEndereco);
         tempoEntrega = findViewById(R.id.tvHoraPedido);
         subTotal = findViewById(R.id.tvSubTotal);
@@ -106,6 +105,7 @@ public class FinalizarPedido extends AppCompatActivity {
         Double valorTotal = 0.00;
         Double taxaEntregaDouble = 0.00;
         int cont = 0;
+        /* Para cada um dos itens na sacola, busca o nome no banco e calcula o valor (preço * qtd) */
         for (Map.Entry item : listaItens.entrySet()) {
             try {
                 cursor = bd.rawQuery("SELECT * FROM produtos WHERE idProduto = " + item.getKey(), null);
@@ -121,6 +121,7 @@ public class FinalizarPedido extends AppCompatActivity {
             cont++;
         }
 
+        /* Pega informações sobre o restaurante para mostrar na tela */
         try {
             cursor = bd.rawQuery("SELECT * FROM restaurantes WHERE idRestaurante = " + idRestaurante, null);
             cursor.moveToFirst();
@@ -135,6 +136,7 @@ public class FinalizarPedido extends AppCompatActivity {
             Toast.makeText(this, "Falha ao buscar o restaurante", Toast.LENGTH_SHORT).show();
         }
 
+        /* Mostra informações buscadas no banco e valor do pedido */
         subTotal.setText("R$ " + df2.format(valorItens));
         taxaEntrega.setText("R$ " + df2.format(taxaEntregaDouble));
         valorTotal = valorItens + taxaEntregaDouble;
@@ -145,14 +147,15 @@ public class FinalizarPedido extends AppCompatActivity {
         btnFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Verifica se selecionou pelo menos um dos radio box e ai insere na tabela pedidos
+                /* Verifica se selecionou pelo menos um dos radio box e ai insere na tabela pedidos */
                 if (rgPagamento.getCheckedRadioButtonId() != -1) {
-                    //Selecionou um método de pagamento
 
+                    /* Pega a data atual e formata */
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date date = new Date();
                     String dataAtual = dateFormat.format(date);
 
+                    /* Converte o campo troco para double */
                     Double trocoDouble;
                     if (troco.getEditText().getText().length() > 0) {
                         trocoDouble = Double.parseDouble(troco.getEditText().getText().toString());
@@ -161,31 +164,34 @@ public class FinalizarPedido extends AppCompatActivity {
                     }
                     String obs = observacao.getEditText().getText().toString();
 
+                    /* Converte o valor total para double */
                     Double valorTotal = Double.parseDouble(totalPedido.getText().toString().substring(3).replace(",", "."));
 
+                    /* Pega qual o método de pagamento */
                     int metodoPagamento = rgPagamento.getCheckedRadioButtonId();
 
                     boolean erro = false;
                     try {
-                        //Salva o pedido
+                        /* Deve inserir na tabela de pedidos */
                         String sql = "INSERT INTO pedidos (idRestaurante, idUsuario, status, observacao," +
                                 " data, troco, precoTotal, metodoPagamento) VALUES (" + idRestaurante + "," + idUsuario + ",'Em andamento','" + obs + "','" +
                                 "" + dataAtual + "'," + trocoDouble + "," + valorTotal + "," + metodoPagamento +")";
-                        //Log.d("SQL", sql);
+
                         bd.execSQL(sql);
+
+                        /* Já que o pedido tem id autoincrement, deve buscar na tabela do SQLite o último id
+                        * que foi autoincrementado para inserir na relação de pedido com produtos */
                         Cursor cursor = bd.rawQuery("SELECT seq FROM sqlite_sequence WHERE name = ?", new String[]{"pedidos"});
                         cursor.moveToFirst();
                         int idPedido = cursor.getInt(cursor.getColumnIndex("seq"));
 
-                        //Salva os itens do pedido
+                        /* Insere na tabela itensPedido todos os itens que foram comprados */
                         for (Map.Entry item : listaItens.entrySet()) {
-                            //Percorre todos os itens inserindo na itensPedido
+                            /* Percorre os itens do pedido salvando na tabela */
 
                             sql = "INSERT INTO itensPedido (idPedido, idProduto,quantidade) " +
                                     "VALUES (" + idPedido + "," + item.getKey().toString() + "," + item.getValue().toString()+")";
                             bd.execSQL(sql);
-                            //Log.d("SQL", sql);
-
                         }
 
                     } catch (SQLiteException e) {
@@ -194,7 +200,7 @@ public class FinalizarPedido extends AppCompatActivity {
                     }
 
                     if(!erro){
-                        //Salvou o pedido e os itens
+                        /* Se não houve erro, deve ir pra activity de pedidos */
                         Intent pedidos = new Intent(getApplicationContext(),Pedidos.class);
                         pedidos.putExtra("idUsuario",idUsuario);
                         startActivity(pedidos);
@@ -203,7 +209,6 @@ public class FinalizarPedido extends AppCompatActivity {
                     else{
                         Intent restaurante = new Intent(getApplicationContext(),RestauranteActivity.class);
                         startActivity(restaurante);
-
                         finish();
                     }
 
@@ -218,7 +223,6 @@ public class FinalizarPedido extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.radioDinheiro) {
-                    //Selecionou dinheiro, então mostra o troco
                     troco.setVisibility(View.VISIBLE);
                 } else {
                     troco.setVisibility(View.GONE);
